@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "param_functions_name": {
+      "value": "IaC-Test-Functions"
+    },
+    "param_serverfarms_externalid": {
+      "value": "/subscriptions/68bec344-00b6-46d7-b511-13e1323144bb/resourceGroups/m2-sakai-rg/providers/Microsoft.Web/serverfarms/IaC-Test-ASP"
+    },
+    "param_functions_name_lowercase": {
+      "value": "iac-test-functions"
+    }
+  }
+}
