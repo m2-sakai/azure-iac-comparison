@@ -3,15 +3,15 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "param_functions_name": {
-      "defaultValue": "IaC-Test-Functions",
       "type": "String"
     },
-    "param_serverfarms_externalid": {
-      "defaultValue": "/subscriptions/68bec344-00b6-46d7-b511-13e1323144bb/resourceGroups/m2-sakai-rg/providers/Microsoft.Web/serverfarms/IaC-Test-ASP",
+    "param_subscription_id": {
       "type": "String"
     },
-    "param_functions_name_lowercase": {
-      "defaultValue": "iac-test-functions",
+    "param_resource_group_name": {
+      "type": "String"
+    },
+    "param_asp_name": {
       "type": "String"
     }
   },
@@ -27,17 +27,17 @@
         "enabled": true,
         "hostNameSslStates": [
           {
-            "name": "[concat(parameters('param_functions_name_lowercase'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('param_functions_name'), '.azurewebsites.net')]",
             "sslState": "Disabled",
             "hostType": "Standard"
           },
           {
-            "name": "[concat(parameters('param_functions_name_lowercase'), '.scm.azurewebsites.net')]",
+            "name": "[concat(parameters('param_functions_name'), '.scm.azurewebsites.net')]",
             "sslState": "Disabled",
             "hostType": "Repository"
           }
         ],
-        "serverFarmId": "[parameters('param_serverfarms_externalid')]",
+        "serverFarmId": "[concat('/subscriptions/', parameters('param_subscription_id'), '/resourceGroups/', parameters('param_resource_group_name'), '/providers/Microsoft.Web/serverfarms/', parameters('param_asp_name'))]",
         "reserved": false,
         "isXenon": false,
         "hyperV": false,

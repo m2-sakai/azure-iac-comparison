@@ -2,15 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "param_functions_name": {
-      "value": "m2-sakai-functionapp"
-    },
-    "param_subscription_id": {
-      "value": "xxxx"
-    },
-    "param_resource_group_name": {
-      "value": "m2-sakai-rg"
-    },
     "param_asp_name": {
       "value": "m2-sakai-asp"
     }
