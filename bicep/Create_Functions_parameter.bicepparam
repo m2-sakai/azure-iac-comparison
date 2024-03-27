@@ -1,5 +1,6 @@
 using 'Create_Functions_template.bicep'
 
-param param_functions_name = 'IaC-Test-Functions'
-param param_serverfarms_externalid = '/subscriptions/xxxx/resourceGroups/m2-sakai-rg/providers/Microsoft.Web/serverfarms/IaC-Test-ASP'
-param param_functions_name_lowercase = 'iac-test-functions'
+param param_functions_name = 'm2-sakai-functionapp'
+param param_subscription_id = 'xxxx'
+param param_resource_group_name = 'm2-sakai-rg'
+param param_asp_name = 'm2-sakai-asp'

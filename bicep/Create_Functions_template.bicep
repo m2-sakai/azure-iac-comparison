@@ -1,6 +1,7 @@
 param param_functions_name string
-param param_serverfarms_externalid string
-param param_functions_name_lowercase string
+param param_subscription_id string
+param param_resource_group_name string
+param param_asp_name string
 
 resource param_functions_name_resource 'Microsoft.Web/sites@2023-01-01' = {
   name: param_functions_name
@@ -10,17 +11,17 @@ resource param_functions_name_resource 'Microsoft.Web/sites@2023-01-01' = {
     enabled: true
     hostNameSslStates: [
       {
-        name: '${param_functions_name_lowercase}.azurewebsites.net'
+        name: '${param_functions_name}.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Standard'
       }
       {
-        name: '${param_functions_name_lowercase}.scm.azurewebsites.net'
+        name: '${param_functions_name}.scm.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Repository'
       }
     ]
-    serverFarmId: param_serverfarms_externalid
+    serverFarmId: '/subscriptions/${param_subscription_id}/resourceGroups/${param_resource_group_name}/providers/Microsoft.Web/serverfarms/${param_asp_name}'
     reserved: false
     isXenon: false
     hyperV: false
@@ -147,8 +148,7 @@ resource param_functions_name_web 'Microsoft.Web/sites/config@2023-01-01' = {
     functionAppScaleLimit: 0
     functionsRuntimeScaleMonitoringEnabled: false
     minimumElasticInstanceCount: 0
-    azureStorageAccounts: {
-    }
+    azureStorageAccounts: {}
   }
 }
 
