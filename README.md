@@ -17,9 +17,41 @@
 
 本リポジトリでは以下のリソースを作成します。リージョンは全て `Japan East` です。
 
-|     | リソース             | 名前                  | 詳細                                                                       |
-| --- | -------------------- | --------------------- | -------------------------------------------------------------------------- |
-| 1   | リソースグループ     | m2-sakai-rg           |                                                                            |
-| 2   | ストレージアカウント | m2sakaistorageaccount | <ul><li>J パフォーマンス：Standard</li><li>レプリケーション：LRS</li></ul> |
-| 3   | App Service Plan     | m2-sakai-asp          | <ul><li>SKU：B1</li><li>OS：Windows</li></ul>                              |
-| 4   | Function App         | m2-sakai-functionapp  |                                                                            |
+|     | リソース             | 名前                  | 詳細                                                                                                                      |
+| --- | -------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| 1   | ストレージアカウント | m2sakaistorageaccount | <ul><li>J パフォーマンス：Standard</li><li>レプリケーション：LRS</li><li>アカウントの種類：StorageV2（汎用 v2）</li></ul> |
+| 2   | App Service Plan     | m2-sakai-asp          | <ul><li>SKU：B1</li><li>OS：Windows</li></ul>                                                                             |
+| 3   | Function App         | m2-sakai-functionapp  |                                                                                                                           |
+
+# リソース作成方法
+
+## 環境
+
+本リポジトリでは以下の環境としております。
+|ツール|バージョン|確認方法|
+|-|-|-|
+|Azure CLI|2.58.0|`az version`|
+|bicep CLI|0.26.54|`az bicep version`|
+|terraform|v1.7.5|`terraform version`|
+|pulumi|||
+
+## ARM Template によるデプロイ
+
+1. `arm_template`フォルダに移動します。
+   ```bash
+   cd arm_template
+   ```
+2. Azure CLI にログインします。
+   ```bash
+   az login
+   ```
+3. 各 ARM Template を以下のコマンドでデプロイします。全てのリソースを一括でデプロイする場合は `run_deploy_arm.sh` を実行します。パラメータは適宜適切なものに変える必要があります。
+   ```bash
+   az deployment group create --resource-group <リソースグループ名> --template-file <ARM Template> --parameters <パラメータファイル>
+   ```
+
+## Bicep によるデプロイ
+
+## Terraform によるデプロイ
+
+## Pulumi によるデプロイ
