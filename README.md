@@ -28,12 +28,13 @@
 ## 環境
 
 本リポジトリでは以下の環境としております。
-|ツール|バージョン|確認方法|
-|-|-|-|
-|Azure CLI|2.58.0|`az version`|
-|bicep CLI|0.26.54|`az bicep version`|
-|terraform|v1.7.5|`terraform version`|
-|pulumi|||
+|ツール|バージョン|確認方法|備考|
+|-|-|-|-|
+|Azure CLI|2.58.0|`az version`||
+|bicep CLI|0.26.54|`az bicep version`||
+|terraform|v1.7.5|`terraform version`||
+|pulumi|v3.111.1|`pulumi version`||
+|node|v20.9.0|`node -v`|Pulumi を Typescript で扱うため|
 
 ## ARM Template によるデプロイ
 
@@ -54,7 +55,7 @@
 
 1. `bicep`フォルダに移動します。
    ```bash
-   cd arm_template
+   cd bicep
    ```
 2. Azure CLI にログインします。
    ```bash
@@ -67,14 +68,34 @@
 
 ## Terraform によるデプロイ
 
-1. `bicep`フォルダに移動します。
+1. `terraform`フォルダに移動します。
    ```bash
-   cd arm_template
+   cd terraform
    ```
 2. Azure CLI にログインします。
    ```bash
    az login
    ```
 3. `run_deploy_terraform.sh` を実行します。パラメータは適宜適切なものに変える必要があります。
+   ```bash
+   sh run_deploy_terraform.sh
+   ```
 
 ## Pulumi によるデプロイ
+
+1. `pulumi`フォルダに移動します。
+   ```bash
+   cd pulumi
+   ```
+2. Azure CLI にログインします。
+   ```bash
+   az login
+   ```
+3. `npm install` を実行して依存ライブラリを取得します。
+   ```bash
+   npm install
+   ```
+4. `pulumi up` を実行します。パラメータは適宜適切なものに変える必要があります。
+   ```bash
+   pulumi up
+   ```
