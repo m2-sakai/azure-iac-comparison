@@ -1,6 +1,6 @@
 import * as pulumi from '@pulumi/pulumi';
-import { createStorageAccount } from './storageaccount';
-import { createAppServicePlan } from './appserviceplan';
+import { createStorageAccount } from './createStorageAccount';
+import { createAppServicePlan } from './createAppServicePlan';
 
 const config = new pulumi.Config();
 
