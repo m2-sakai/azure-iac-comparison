@@ -16,7 +16,7 @@ variable "param_resource_group_name" {
   description = "Resource Group Name"
 }
 
-variable "param_storageAccounts_name" {
+variable "param_storageAccount_name" {
   type = string
   default = "m2sakaistorageaccount"
   description = "Storage Account Name"

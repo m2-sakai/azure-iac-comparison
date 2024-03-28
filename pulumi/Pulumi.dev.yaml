@@ -1,2 +1,4 @@
 config:
-  azure-native:location: Japaneast
+  location: 'Japaneast'
+  rgName: 'm2-sakai-rg'
+  storageAccountName: 'm2sakaistorageaccount'

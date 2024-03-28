@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "param_storageAccounts_name": {
+    "param_storageAccount_name": {
       "type": "String"
     }
   },
@@ -11,7 +11,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2023-01-01",
-      "name": "[parameters('param_storageAccounts_name')]",
+      "name": "[parameters('param_storageAccount_name')]",
       "location": "japaneast",
       "sku": {
         "name": "Standard_LRS",
@@ -53,9 +53,9 @@
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices",
       "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('param_storageAccounts_name'), '/default')]",
+      "name": "[concat(parameters('param_storageAccount_name'), '/default')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccounts_name'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccount_name'))]"
       ],
       "sku": {
         "name": "Standard_LRS",
@@ -79,9 +79,9 @@
     {
       "type": "Microsoft.Storage/storageAccounts/fileServices",
       "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('param_storageAccounts_name'), '/default')]",
+      "name": "[concat(parameters('param_storageAccount_name'), '/default')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccounts_name'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccount_name'))]"
       ],
       "sku": {
         "name": "Standard_LRS",
@@ -103,9 +103,9 @@
     {
       "type": "Microsoft.Storage/storageAccounts/queueServices",
       "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('param_storageAccounts_name'), '/default')]",
+      "name": "[concat(parameters('param_storageAccount_name'), '/default')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccounts_name'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccount_name'))]"
       ],
       "properties": {
         "cors": {
@@ -116,9 +116,9 @@
     {
       "type": "Microsoft.Storage/storageAccounts/tableServices",
       "apiVersion": "2023-01-01",
-      "name": "[concat(parameters('param_storageAccounts_name'), '/default')]",
+      "name": "[concat(parameters('param_storageAccount_name'), '/default')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccounts_name'))]"
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('param_storageAccount_name'))]"
       ],
       "properties": {
         "cors": {

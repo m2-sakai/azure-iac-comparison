@@ -1,7 +1,7 @@
-param param_storageAccounts_name string
+param param_storageAccount_name string
 
-resource param_storageAccounts_name_resource 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: param_storageAccounts_name
+resource param_storageAccount_name_resource 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: param_storageAccount_name
   location: 'japaneast'
   sku: {
     name: 'Standard_LRS'
@@ -41,8 +41,8 @@ resource param_storageAccounts_name_resource 'Microsoft.Storage/storageAccounts@
   }
 }
 
-resource param_storageAccounts_name_default 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
-  parent: param_storageAccounts_name_resource
+resource param_storageAccount_name_default 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
+  parent: param_storageAccount_name_resource
   name: 'default'
   sku: {
     name: 'Standard_LRS'
@@ -64,8 +64,8 @@ resource param_storageAccounts_name_default 'Microsoft.Storage/storageAccounts/b
   }
 }
 
-resource Microsoft_Storage_storageAccounts_fileServices_param_storageAccounts_name_default 'Microsoft.Storage/storageAccounts/fileServices@2023-01-01' = {
-  parent: param_storageAccounts_name_resource
+resource Microsoft_Storage_storageAccounts_fileServices_param_storageAccount_name_default 'Microsoft.Storage/storageAccounts/fileServices@2023-01-01' = {
+  parent: param_storageAccount_name_resource
   name: 'default'
   sku: {
     name: 'Standard_LRS'
@@ -85,8 +85,8 @@ resource Microsoft_Storage_storageAccounts_fileServices_param_storageAccounts_na
   }
 }
 
-resource Microsoft_Storage_storageAccounts_queueServices_param_storageAccounts_name_default 'Microsoft.Storage/storageAccounts/queueServices@2023-01-01' = {
-  parent: param_storageAccounts_name_resource
+resource Microsoft_Storage_storageAccounts_queueServices_param_storageAccount_name_default 'Microsoft.Storage/storageAccounts/queueServices@2023-01-01' = {
+  parent: param_storageAccount_name_resource
   name: 'default'
   properties: {
     cors: {
@@ -95,8 +95,8 @@ resource Microsoft_Storage_storageAccounts_queueServices_param_storageAccounts_n
   }
 }
 
-resource Microsoft_Storage_storageAccounts_tableServices_param_storageAccounts_name_default 'Microsoft.Storage/storageAccounts/tableServices@2023-01-01' = {
-  parent: param_storageAccounts_name_resource
+resource Microsoft_Storage_storageAccounts_tableServices_param_storageAccount_name_default 'Microsoft.Storage/storageAccounts/tableServices@2023-01-01' = {
+  parent: param_storageAccount_name_resource
   name: 'default'
   properties: {
     cors: {

@@ -1,6 +1,6 @@
 {
     "name": "azure-iac-pulumi",
-    "main": "index.ts",
+    "main": "src/index.ts",
     "devDependencies": {
         "@types/node": "^18"
     },
