@@ -52,6 +52,29 @@
 
 ## Bicep によるデプロイ
 
+1. `bicep`フォルダに移動します。
+   ```bash
+   cd arm_template
+   ```
+2. Azure CLI にログインします。
+   ```bash
+   az login
+   ```
+3. 各 Bicep を以下のコマンドでデプロイします。全てのリソースを一括でデプロイする場合は `run_deploy_bicep.sh` を実行します。パラメータは適宜適切なものに変える必要があります。
+   ```bash
+   az deployment group create --resource-group <リソースグループ名> --template-file <Bicep ファイル> --parameters <パラメータファイル>
+   ```
+
 ## Terraform によるデプロイ
+
+1. `bicep`フォルダに移動します。
+   ```bash
+   cd arm_template
+   ```
+2. Azure CLI にログインします。
+   ```bash
+   az login
+   ```
+3. `run_deploy_terraform.sh` を実行します。パラメータは適宜適切なものに変える必要があります。
 
 ## Pulumi によるデプロイ
