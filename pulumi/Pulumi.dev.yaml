@@ -1,5 +1,0 @@
-config:
-  location: 'Japaneast'
-  rgName: 'm2-sakai-rg'
-  storageAccountName: 'm2sakaistorageaccount'
-  aspName: 'm2-sakai-asp'
