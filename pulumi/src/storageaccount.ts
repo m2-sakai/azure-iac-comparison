@@ -7,33 +7,20 @@ export const createStorageAccount = async (
 ) => {
   const config = new pulumi.Config();
 
-  const currentResourceGroup = azure_native.resources.getResourceGroupOutput({
-    resourceGroupName: resourceGroupName,
-  });
-
   const storageAccountType = config.get('storageAccountType') || 'Standard_LRS';
 
-  const location =
-    config.get('location') ||
-    currentResourceGroup.apply(
-      (currentResourceGroup) => currentResourceGroup.location
-    );
+  const location = config.get('location') || 'Japan East';
 
   const storageAccount = new azure_native.storage.StorageAccount(
-    'storageAccount',
+    storageAccountName,
     {
       accountName: storageAccountName,
       kind: 'StorageV2',
       location: location,
-      resourceGroupName: currentResourceGroup.apply(
-        (currentResourceGroup) => currentResourceGroup.name
-      ),
+      resourceGroupName: resourceGroupName,
       sku: {
         name: storageAccountType,
       },
     }
   );
-  return {
-    storageAccountName: storageAccount.name,
-  };
 };
