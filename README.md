@@ -19,7 +19,7 @@
 
 |     | リソース             | 名前                  | 詳細                                                                                                                      |
 | --- | -------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| 1   | ストレージアカウント | m2sakaistorageaccount | <ul><li>J パフォーマンス：Standard</li><li>レプリケーション：LRS</li><li>アカウントの種類：StorageV2（汎用 v2）</li></ul> |
+| 1   | ストレージアカウント | m2sakaistorageaccount | <ul><li>パフォーマンス：Standard</li><li>レプリケーション：LRS</li><li>アカウントの種類：StorageV2（汎用 v2）</li></ul> |
 | 2   | App Service Plan     | m2-sakai-asp          | <ul><li>SKU：B1</li><li>OS：Windows</li></ul>                                                                             |
 | 3   | Function App         | m2-sakai-functionapp  |                                                                                                                           |
 
