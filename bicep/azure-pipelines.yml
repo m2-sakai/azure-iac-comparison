@@ -26,8 +26,8 @@ stages:
               resourceGroupName: $(resourceGroupName)
               location: $(location)
               templateLocation: 'Linked artifact'
-              csmFile: 'arm_template/Create_StorageAccount_template.json'
-              csmParametersFile: 'arm_template/Create_StorageAccount_parameter.json'
+              csmFile: 'bicep/Create_StorageAccount_template.bicep'
+              csmParametersFile: 'bicep/Create_StorageAccount_parameter.bicepparam'
               deploymentMode: 'Incremental'
   # App Service Plan のデプロイ
   - stage: DeployAppServicePlan
@@ -45,8 +45,8 @@ stages:
               resourceGroupName: $(resourceGroupName)
               location: $(location)
               templateLocation: 'Linked artifact'
-              csmFile: 'arm_template/Create_AppServicePlan_template.json'
-              csmParametersFile: 'arm_template/Create_AppServicePlan_parameter.json'
+              csmFile: 'bicep/Create_AppServicePlan_template.bicep'
+              csmParametersFile: 'bicep/Create_AppServicePlan_parameter.bicepparam'
               deploymentMode: 'Incremental'
   # Functions のデプロイ
   - stage: DeployFunctionApp
@@ -64,6 +64,6 @@ stages:
               resourceGroupName: $(resourceGroupName)
               location: $(location)
               templateLocation: 'Linked artifact'
-              csmFile: 'arm_template/Create_Functions_template.json'
-              csmParametersFile: 'arm_template/Create_Functions_parameter.json'
+              csmFile: 'bicep/Create_Functions_template.bicep'
+              csmParametersFile: 'bicep/Create_Functions_parameter.bicepparam'
               deploymentMode: 'Incremental'
