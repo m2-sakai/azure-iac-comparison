@@ -1,0 +1,61 @@
+# 手動実行
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  serviceConnectionName: 'm2-sakai-service-connection'
+  resourceGroupName: 'm2-sakai-rg'
+  location: 'Japan East'
+  terraformVersion: '1.7.5'
+  terraformWorkingDirectory: 'terraform'
+
+stages:
+  # Terraform Install
+  - stage: InstallTerraform
+    displayName: 'Install Terraform'
+    jobs:
+      - job: InstallTerraform
+        displayName: 'Install Terraform'
+        steps:
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@1
+            displayName: 'Install Terraform $(terraformVersion)'
+            inputs:
+              terraformVersion: $(terraformVersion)
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+            displayName: 'Check Terraform Version'
+            inputs:
+              command: 'version'
+  # Terraform Execute
+  - stage: ExecuteTerraform
+    displayName: 'Execute Terraform'
+    jobs:
+      - job: ExecuteTerraform
+        displayName: 'Execute Terraform'
+        steps:
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+            displayName: 'Run terraform init'
+            inputs:
+              command: 'init'
+              workingDirectory: $(terraformWorkingDirectory)
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+            displayName: 'Run terraform validate'
+            inputs:
+              command: 'validate'
+              workingDirectory: $(terraformWorkingDirectory)
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+            displayName: 'Run terraform plan'
+            inputs:
+              command: 'plan'
+              workingDirectory: $(terraformWorkingDirectory)
+              environmentServiceName: $(serviceConnectionName)
+              commandOptions: '-out=$(System.DefaultWorkingDirectory)/main.tfplan'
+          - task: JasonBJohnson.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@1
+            displayName: 'Run terraform apply'
+            condition: succeeded()
+            inputs:
+              command: 'apply'
+              workingDirectory: $(terraformWorkingDirectory)
+              environmentServiceName: $(serviceConnectionName)
+              commandOptions: '$(System.DefaultWorkingDirectory)/main.tfplan'
