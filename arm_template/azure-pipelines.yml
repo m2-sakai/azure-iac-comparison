@@ -1,0 +1,63 @@
+# 手動実行
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  serviceConnectionName: 'm2-sakai-service-connection'
+  resourceGroupName: 'm2-sakai-rg'
+  location: 'Japan East'
+
+jobs:
+  # ストレージアカウントのデプロイ
+  - job: DeployStorageAccounts
+    displayName: 'Deploy Storage Accounts'
+    steps:
+      - task: AzureResourceManagerTemplateDeployment@3
+        displayName: 'Deploy Storage Accounts m2sakaistorageaccount'
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: $(serviceConnectionName)
+          subscriptionId: $(subscription_id)
+          resourceGroupName: $(resourceGroupName)
+          location: $(location)
+          templateLocation: 'Linked artifact'
+          csmFile: 'arm_template/Create_StorageAccount_template.json'
+          csmParametersFile: 'arm_template/Create_StorageAccount_parameter.json'
+          deploymentMode: 'Incremental'
+  # App Service Plan のデプロイ
+  - job: DeployAppServicePlan
+    displayName: 'Deploy AppServicePlan'
+    steps:
+      - task: AzureResourceManagerTemplateDeployment@3
+        displayName: 'Deploy AppServicePlan m2-sakai-asp'
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: $(serviceConnectionName)
+          subscriptionId: $(subscription_id)
+          resourceGroupName: $(resourceGroupName)
+          location: $(location)
+          templateLocation: 'Linked artifact'
+          csmFile: 'arm_template/Create_AppServicePlan_template.json'
+          csmParametersFile: 'arm_template/Create_AppServicePlan_parameter.json'
+          deploymentMode: 'Incremental'
+  # Functions のデプロイ
+  - job: DeployFunctionApp
+    displayName: 'Deploy Function App'
+    dependsOn:
+      - DeployStorageAccounts
+      - DeployAppServicePlan
+    steps:
+      - task: AzureResourceManagerTemplateDeployment@3
+        displayName: 'Deploy Function App m2-sakai-functionapp'
+        inputs:
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: $(serviceConnectionName)
+          subscriptionId: $(subscription_id)
+          resourceGroupName: $(resourceGroupName)
+          location: $(location)
+          templateLocation: 'Linked artifact'
+          csmFile: 'arm_template/Create_Functions_template.json'
+          csmParametersFile: 'arm_template/Create_Functions_parameter.json'
+          deploymentMode: 'Incremental'
