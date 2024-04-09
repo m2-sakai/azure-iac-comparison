@@ -1,0 +1,53 @@
+# 手動実行
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  serviceConnectionName: 'm2-sakai-service-connection'
+  resourceGroupName: 'm2-sakai-rg'
+  location: 'Japan East'
+  pulumiWorkingDirectory: 'pulumi'
+  pulumiStack: 'm2-sakai/azure-iac-pulumi/devops'
+
+stages:
+  # Node install
+  - stage: Install
+    displayName: 'Install Node.js'
+    jobs:
+      - job: Install
+        displayName: 'Install Node.js'
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: '20.x'
+  # pulumi Execute
+  - stage: PulumiExecute
+    displayName: 'Execute Pulumi'
+    jobs:
+      - job: PulumiExecute
+        displayName: 'Execute Pulumi'
+        steps:
+          - task: Pulumi@1
+            displayName: 'Authenticating pulimi'
+            inputs:
+              command: 'login'
+              cwd: '$(pulumiWorkingDirectory)/'
+              stack: $(pulumiStack)
+              createStack: true
+            env:
+              PULUMI_ACCESS_TOKEN: $(pulumiAccessToken)
+          # Pulumi@1で pulumi upが実行できなかったためAzureCLI側で実行
+          - task: AzureCLI@2
+            displayName: 'Run Pulumi up'
+            condition: succeeded()
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                cd $(pulumiWorkingDirectory)
+                npm install
+                pulumi up --yes
